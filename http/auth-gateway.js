@@ -97,6 +97,11 @@ var HttpAuthGateway = HttpGateway.extend({
             }
         };
 
+        if (! token) {
+            handleFailure();
+            return;
+        }
+
         refreshData = qs.stringify({
             client_id     : this.config.client_id,
             grant_type    : 'refresh_token',
