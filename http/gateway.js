@@ -26,7 +26,7 @@ var HttpGateway = Extendable.extend({
      * @param  object  headers  Additional headers (if any)
      * @return promise
      */
-    apiRequest : function(method, path, data, headers)
+    apiRequest : function(method, path, data, headers, overrideOptions)
     {
         var gateway = this;
 
@@ -34,9 +34,12 @@ var HttpGateway = Extendable.extend({
             headers = {};
         }
 
+        overrideOptions = overrideOptions || {};
+
         return Q.Promise(function(resolve, reject) {
             var options = gateway.getRequestOptions(method, path, data);
 
+            _.extend(options, overrideOptions);
             _.extend(options.headers, headers);
 
             var req = (gateway.getConfig().secure ? https : http).request(options, function(response) {
