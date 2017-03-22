@@ -104,6 +104,7 @@ var HttpAuthGateway = HttpGateway.extend({
 
         refreshData = qs.stringify({
             client_id     : this.config.client_id,
+            client_secret : this.config.client_secret,
             grant_type    : 'refresh_token',
             refresh_token : token.refresh_token
         });
